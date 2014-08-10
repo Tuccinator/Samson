@@ -3,3 +3,5 @@
 <?php echo $testElement; ?>
 
 <p><?php echo $password; ?></p>
+
+<?php echo $form; ?>

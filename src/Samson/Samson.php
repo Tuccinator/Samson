@@ -1,6 +1,9 @@
 <?php
 namespace Samson;
 
+use Samson\Form\Form;
+use Samson\Exception\TemplateNotFoundException;
+
 /**
  * @author Nick Tucci <nicktucci@hotmail.ca>
  * @version 1.0
@@ -67,6 +70,16 @@ class Samson
 		array_push($this->partials, $template);
 	}
 
+	public function addTemplate(Template $template)
+	{
+		if(!file_exists($this->templateDir . $template->getFile())) {
+			echo "The <i>{$template->getFile()}</i> template does not exist.";
+			return false;
+		}
+
+		array_push($this->partials, $template);
+	}
+
 	/**
 	 * Retrieve all of the partials
 	 * @return array Partials
@@ -92,12 +105,18 @@ class Samson
 	 * @param  Template $template Main template
 	 * @return
 	 */
-	public function render(Template $template)
+	public function render()
 	{
 		$elements = array();
 
 		foreach($this->elementManager->getElements() as $element) {
-			$elements[$element->getId()] = "<{$element->getType()} id='{$element->getId()}'>{$element->getContent()}</{$element->getType()}>";
+			$attrs = '';
+			if(count($element->getAttr()) >= 1) {
+				foreach($element->getAttr() as $key => $attr) {
+					$attrs .= "{$key}='{$attr}'";
+				}
+			}
+			$elements[$element->getAttr('id')] = "<{$element->getType()} {$attrs}>{$element->getContent()}</{$element->getType()}>";
 		}
 
 		extract($elements);
@@ -108,15 +127,6 @@ class Samson
 				include($this->templateDir . $partial->getFile());
 			}
 		}
-
-
-		if(!file_exists($this->templateDir . $template->getFile())) {
-			echo "<i>{$template->getFile()}</i> does not exist.";
-			return false;
-		}
-
-		extract($template->getVars());
-		include($this->templateDir . $template->getFile());
 		return;
 	}
 
@@ -143,5 +153,11 @@ class Samson
 	public function getEngine()
 	{
 		return $this->engine;
+	}
+
+	public function form(Array $attr)
+	{
+		$form = new Form($attr);
+		return $form;
 	}
 }

@@ -10,22 +10,10 @@ namespace Samson\Element;
 class Element
 {
 	/**
-	 * ID associated with HTML element
-	 * @var string
+	 * Element attributes
+	 * @var array
 	 */
-	private $id;
-
-	/**
-	 * Name associated with HTML element
-	 * @var string
-	 */
-	private $name;
-
-	/**
-	 * Class associated with HTML element
-	 * @var string
-	 */
-	private $class;
+	private $attr;
 
 	/**
 	 * Type of HTML element i.e. div, h1
@@ -43,16 +31,12 @@ class Element
 	 * Set the HTML element properties
 	 * @param string  $type    Type of HTML element
 	 * @param string  $content Content inside the HTML element
-	 * @param string  $id      ID associated with HTML element
-	 * @param string  $class   Class associated with HTML element
-	 * @param string  $name    Name associated with HTML element
+	 * @param string  $attr Element attributes
 	 */
-	public function __construct($type, $content, $id = false, $class = false, $name = false)
+	public function __construct($type, $content, $attr = [])
 	{
 		$this->type = $type;
-		$this->id = $id;
-		$this->name = $name;
-		$this->class = $class;
+		$this->attr = $attr;
 		$this->content = $content;
 	}
 
@@ -75,29 +59,14 @@ class Element
 	}
 
 	/**
-	 * Retrieve the ID of HTML element
-	 * @return string ID of HTML element
+	 * Retrieve an array of element attributes
+	 * @return array Element attributes
 	 */
-	public function getId()
+	public function getAttr($index = null)
 	{
-		return $this->id;
-	}
-
-	/**
-	 * Retrieve the class of HTML element
-	 * @return string Class of HTML element
-	 */
-	public function getClass()
-	{
-		return $this->class;
-	}
-
-	/**
-	 * Retrieve the name of the HTML element
-	 * @return string Name of the HTML element
-	 */
-	public function getName()
-	{
-		return $this->name;
+		if(!is_null($index)) {
+			return $this->attr[$index];
+		}
+		return $this->attr;
 	}
 }
