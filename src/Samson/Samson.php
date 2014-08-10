@@ -123,7 +123,8 @@ class Samson
 
 		if(count($this->partials)) {
 			foreach($this->partials as $partial) {
-				array_walk_recursive($partial->getVars(), function(&$value) {
+				$variables = $partial->getVars();
+				array_walk_recursive($variables, function(&$value) {
 					$value = htmlentities($value);
 				});
 				extract($partial->getVars());
