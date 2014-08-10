@@ -127,7 +127,7 @@ class Samson
 				array_walk_recursive($variables, function(&$value) {
 					$value = htmlentities($value);
 				});
-				extract($partial->getVars());
+				extract($variables);
 				include($this->templateDir . $partial->getFile());
 			}
 		}
