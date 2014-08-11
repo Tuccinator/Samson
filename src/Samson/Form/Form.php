@@ -69,7 +69,7 @@ class Form
 		foreach($attr as $attrKey => $attribute) {
 			$attrs .= $attrKey . '="' . $attribute . '" ';
 		}
-		$select .= '<select ' . $attrs . '">';
+		$select .= '<select ' . $attrs . '>';
 		$select .= $options;
 		$select .= '</select>';
 

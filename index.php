@@ -16,6 +16,6 @@ $form = $samson->form(array('action' => '', 'method' => 'POST'))
 				->textarea(array('name' => 'description', 'content' => 'I would really like to be an admin.', 'class' => 'sumo'))
 				->button(array('name' => 'submit2' , 'class' => 'btn btn-primary', 'text' => 'Create'))
 				->create();
-$samson->addTemplate(new Template('user.tpl', ['username' => 'Nick Tucci', 'password' => 'password', 'form' => $form]));
+$samson->addTemplate(new Template('user.tpl', ['username' => 'Nick Tucci', 'password' => 'password'], ['form' => $form]));
 $samson->addPartial(new Template('footer.tpl'));
 $samson->render();

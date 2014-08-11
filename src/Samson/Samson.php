@@ -123,11 +123,12 @@ class Samson
 
 		if(count($this->partials)) {
 			foreach($this->partials as $partial) {
-				$variables = $partial->getVars();
+				$variables = $partial->getVars('escaped');
 				array_walk_recursive($variables, function(&$value) {
 					$value = htmlentities($value);
 				});
 				extract($variables);
+				extract($partial->getVars());
 				include($this->templateDir . $partial->getFile());
 			}
 		}

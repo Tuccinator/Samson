@@ -55,8 +55,8 @@ $form = $samson->form(array('action' => '', 'method' => 'POST'))
 				->button(array('type' => 'submit', 'name' => 'submit' , 'class' => 'btn btn-primary', 'text' => 'Create'))
 				->create();
 
-// Add the main template by injecting another Template object into the addTemplate method. The second parameter takes the values to be output
-$samson->addTemplate(new Template('user.tpl', ['username' => 'Nick Tucci', 'password' => 'password', 'form' => $form]));
+// Add the main template by injecting another Template object into the addTemplate method. The second parameter takes the values to be escaped. Third parameter are non-escaped values.
+$samson->addTemplate(new Template('user.tpl', ['username' => 'Nick Tucci', 'password' => 'password'], ['form' => $form]));
 
 // Add yet another partial template, this time the footer
 $samson->addPartial(new Template('footer.tpl'));

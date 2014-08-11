@@ -26,10 +26,11 @@ class Template
 	 * @param string $file Filename
 	 * @param array $vars All variables of template
 	 */
-	public function __construct($file, $vars = [])
+	public function __construct($file, $escapedVars = [], $vars = [])
 	{
 		$this->file = $file;
-		$this->vars = $vars;
+		$this->vars['escaped'] = $escapedVars;
+		$this->vars['original'] = $vars;
 	}
 
 	/**
@@ -54,9 +55,9 @@ class Template
 	 * Retrieve all variables
 	 * @return array Variables
 	 */
-	public function getVars()
+	public function getVars($index = 'original')
 	{
-		return $this->vars;
+		return $this->vars[$index];
 	}
 
 	/**
